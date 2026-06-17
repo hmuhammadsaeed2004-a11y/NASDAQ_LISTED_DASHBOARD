@@ -37,7 +37,9 @@ TEXT = "#c8d8f0"
 @st.cache_data
 def load_data() -> pd.DataFrame:
     """Load the NASDAQ CSV and engineer all derived columns."""
-    df = pd.read_csv("data/1780492838799_nasdaq-listed__1_.csv")
+    import os
+    _BASE = os.path.dirname(os.path.abspath(__file__))
+    df = pd.read_csv(os.path.join(_BASE, "data", "1780492838799_nasdaq-listed__1_.csv"))
     df.columns = df.columns.str.strip()
     df = df.dropna(subset=["Symbol", "Security Name"])
     df = df[df["Symbol"].str.strip() != ""]
